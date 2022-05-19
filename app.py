@@ -104,18 +104,46 @@ app.layout = dbc.Container(
 
         dbc.Row([
             dbc.Col([
-                dcc.Graph(id='line_chart',figure=fig,style={'margin-top':'40px','margin-bottom':'40px'})
+                dcc.Graph(id='line_chart',figure=fig,style={'height':'50vh','margin-top':'40px','margin-bottom':'40px'})
                     ])
                 ]),
 
         dbc.Row([
             dbc.Col([
-                dcc.Graph(id='volume_chart',figure=fig2,style={'margin-top':'40px','margin-bottom':'40px'})
+                dcc.Graph(id='volume_chart',figure=fig2,style={'height':'50vh','margin-top':'40px','margin-bottom':'40px'})
                     ])
                 ])
         ])
     ], className="g-0")
 , fluid=True)
+
+d1 = '2020-05-19'
+d2 = '2020-05-20'
+date = d1 + d2
+
+@app.callback(
+    [
+        Output('preco-max-text','children'),
+        Output('volume-max-text','children'),
+        Output('tendencia-text','children'),
+        Output('em-preco-text','children'),
+        Output('em-volume-text','children'),
+        Output('em-tendencia-text','children')
+    ],
+    [
+        Input(),
+        Input(d2)
+    ]
+    )
+
+
+def display_status(date,date2):
+    
+    columns = df['Close'].loc[range(date,date2)]
+    max_close = columns.max()
+    
+    return (1, 2, 3, 4, 5, 6)
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
